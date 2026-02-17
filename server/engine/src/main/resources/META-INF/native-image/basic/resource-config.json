@@ -2,6 +2,12 @@
   "resources":{
     "includes":[
       {
+        "pattern":"\\QimplicitCopybooks/DFHAID.cpy\\E"
+      },
+      {
+        "pattern":"\\QimplicitCopybooks/DFHBMSCA.cpy\\E"
+      },
+      {
         "pattern":"\\QimplicitCopybooks/DFHEIBLC.cpy\\E"
       },
       {

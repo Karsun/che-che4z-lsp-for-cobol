@@ -373,6 +373,8 @@
             ".COPY",
             ".cpy",
             ".copy",
+            ".DCL",
+            ".dcl",
             ""
           ],
           "description": "List of copybook extensions. Empty string specifies no file extension.",
