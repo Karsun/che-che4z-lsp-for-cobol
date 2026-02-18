@@ -18,10 +18,14 @@ package org.eclipse.lsp.cobol.implicitDialects.cics;
 import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.eclipse.lsp.cobol.common.AnalysisConfig;
 import org.eclipse.lsp.cobol.common.ResultWithErrors;
+import org.eclipse.lsp.cobol.common.copybook.CopybookModel;
+import org.eclipse.lsp.cobol.common.copybook.CopybookName;
 import org.eclipse.lsp.cobol.common.copybook.CopybookService;
 import org.eclipse.lsp.cobol.common.dialects.CobolDialect;
 import org.eclipse.lsp.cobol.common.dialects.DialectOutcome;
@@ -34,6 +38,8 @@ import org.eclipse.lsp.cobol.common.model.tree.ProgramNode;
 import org.eclipse.lsp.cobol.common.model.tree.SectionNode;
 import org.eclipse.lsp.cobol.common.processor.ProcessingPhase;
 import org.eclipse.lsp.cobol.common.processor.ProcessorDescription;
+import org.eclipse.lsp.cobol.common.utils.ImplicitCodeUtils;
+import org.eclipse.lsp.cobol.common.file.WorkspaceFileService;
 import org.eclipse.lsp.cobol.implicitDialects.cics.nodes.ExecCicsNode;
 import org.eclipse.lsp.cobol.implicitDialects.cics.processor.CICSExecBlockProcessor;
 import org.eclipse.lsp.cobol.implicitDialects.cics.processor.CICSImplicitVariablesProcessor;
@@ -44,6 +50,11 @@ import org.eclipse.lsp.cobol.implicitDialects.cics.processor.CICSTranslateMandat
 public class CICSDialect implements CobolDialect {
 
   public static final String DIALECT_NAME = "cics";
+
+  /** Names of CICS implicit copybooks (without .cpy) shipped in implicitCopybooks resources. */
+  private static final List<String> CICS_IMPLICIT_COPYBOOK_NAMES =
+      ImmutableList.of("DFHAID", "DFHBMSCA");
+
   private final CopybookService copybookService;
   private final MessageService messageService;
 
@@ -97,6 +108,25 @@ public class CICSDialect implements CobolDialect {
             ExecCicsNode.class,
             ProcessingPhase.VALIDATION,
             new CICSExecBlockProcessor(messageService)));
+  }
+
+  @Override
+  public List<CopybookModel> getPredefinedCopybook(AnalysisConfig ctx) {
+    WorkspaceFileService workspaceFileService = new WorkspaceFileService();
+    return CICS_IMPLICIT_COPYBOOK_NAMES.stream()
+        .map(
+            name -> {
+              String content = workspaceFileService.readImplicitCode(name);
+              if (content == null) {
+                return null;
+              }
+              CopybookName copybookName = new CopybookName(name);
+              String fullUrl = ImplicitCodeUtils.createFullUrl(name);
+              return new CopybookModel(
+                  copybookName.toCopybookId(fullUrl), copybookName, fullUrl, content);
+            })
+        .filter(model -> model != null)
+        .collect(Collectors.toList());
   }
 
   @Override
