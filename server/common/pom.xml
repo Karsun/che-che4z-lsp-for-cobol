@@ -66,14 +66,6 @@
         </developer>
     </developers>
 
-    <distributionManagement>
-        <repository>
-            <id>central</id>
-            <name>Artifactory SaaS BSG-releases</name>
-            <url>https://usw1.packages.broadcom.com/artifactory/msd-common-maven-release-local</url>
-        </repository>
-    </distributionManagement>
-
     <profiles>
         <profile>
             <id>release</id>
