@@ -50,6 +50,8 @@ import org.eclipse.lsp.cobol.core.engine.dialects.v2.CobolDialectV2;
 import org.eclipse.lsp.cobol.core.engine.dialects.v2.DialectProcessingService;
 import org.eclipse.lsp.cobol.core.engine.errors.ErrorFinalizerService;
 import org.eclipse.lsp.cobol.implicitDialects.cics.CICSDialect;
+import org.eclipse.lsp.cobol.implicitDialects.dli.DLIDialect;
+import org.eclipse.lsp.cobol.implicitDialects.mq.MQDialect;
 import org.eclipse.lsp.cobol.implicitDialects.sql.Db2SqlDialect;
 import org.eclipse.lsp4j.Location;
 import org.eclipse.lsp4j.Position;
@@ -203,6 +205,8 @@ public class DialectService {
   public ImmutableList<CobolDialect> getImplicitCobolDialects() {
     return ImmutableList.of(
         new CICSDialect(copybookService, messageService),
+        new DLIDialect(copybookService, messageService),
+        new MQDialect(copybookService, messageService),
         new Db2SqlDialect(copybookService, messageService));
   }
 
@@ -212,7 +216,9 @@ public class DialectService {
 
   private List<String> getImplicitDialects(AnalysisConfig config) {
     List<String> result = new ArrayList<>();
+    result.add(MQDialect.DIALECT_NAME); // MQ copybooks always available (with or without CICS)
     if (config.isCicsTranslatorEnabled()) result.add(CICSDialect.DIALECT_NAME);
+    if (config.isDliTranslatorEnabled()) result.add(DLIDialect.DIALECT_NAME);
     if (isSqlDialectActive(config)) result.add(Db2SqlDialect.DIALECT_NAME);
     return Collections.unmodifiableList(result);
   }

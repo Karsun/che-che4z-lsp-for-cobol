@@ -1,42 +1,65 @@
 {
-  "resources":{
-    "includes":[
+  "resources": {
+    "includes": [
       {
-        "pattern":"\\QimplicitCopybooks/DFHAID.cpy\\E"
+        "pattern": "\\QimplicitCopybooks/DFHAID.cpy\\E"
       },
       {
-        "pattern":"\\QimplicitCopybooks/DFHBMSCA.cpy\\E"
+        "pattern": "\\QimplicitCopybooks/DFHBMSCA.cpy\\E"
       },
       {
-        "pattern":"\\QimplicitCopybooks/DFHEIBLC.cpy\\E"
+        "pattern": "\\QimplicitCopybooks/DFHEIBLC.cpy\\E"
       },
       {
-        "pattern":"\\QimplicitCopybooks/SPECIALREGISTERS.cpy\\E"
+        "pattern": "\\QimplicitCopybooks/SPECIALREGISTERS.cpy\\E"
       },
       {
-        "pattern":"\\QimplicitCopybooks/SQLCA_DB2.cpy\\E"
+        "pattern": "\\QimplicitCopybooks/SQLCA_DB2.cpy\\E"
       },
       {
-        "pattern":"\\QimplicitCopybooks/SQLCA_DATACOM.cpy\\E"
+        "pattern": "\\QimplicitCopybooks/SQLCA_DATACOM.cpy\\E"
       },
       {
-        "pattern":"\\QimplicitCopybooks/SQLDA.cpy\\E"
+        "pattern": "\\QimplicitCopybooks/SQLDA.cpy\\E"
       },
       {
-        "pattern":"\\Qlogback.xml\\E"
+        "pattern": "\\QimplicitCopybooks/CMQTML.cpy\\E"
       },
       {
-        "pattern":"\\Q/SpecialTokenHandling.properties\\E"
+        "pattern": "\\QimplicitCopybooks/CMQV.cpy\\E"
       },
       {
-        "pattern":"\\Q/LanguageKeywords.txt\\E"
+        "pattern": "\\QimplicitCopybooks/CMQODV.cpy\\E"
       },
       {
-        "pattern":"\\Q/LanguageKeywords_sql.txt\\E"
+        "pattern": "\\QimplicitCopybooks/CMQPMOV.cpy\\E"
+      },
+      {
+        "pattern": "\\QimplicitCopybooks/CMQMDV.cpy\\E"
+      },
+      {
+        "pattern": "\\QimplicitCopybooks/CMQGMOV.cpy\\E"
+      },
+      {
+        "pattern": "\\Qlogback.xml\\E"
+      },
+      {
+        "pattern": "\\Q/SpecialTokenHandling.properties\\E"
+      },
+      {
+        "pattern": "\\Q/LanguageKeywords.txt\\E"
+      },
+      {
+        "pattern": "\\Q/LanguageKeywords_sql.txt\\E"
       }
-    ]},
-  "bundles":[{
-    "name":"resourceBundles/messages",
-    "locales":["en"]
-  }]
+    ]
+  },
+  "bundles": [
+    {
+      "name": "resourceBundles/messages",
+      "locales": [
+        "en"
+      ]
+    }
+  ]
 }
