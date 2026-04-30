@@ -33,7 +33,8 @@
     "Programming Languages"
   ],
   "activationEvents": [
-    "onLanguage:cobol"
+    "onLanguage:cobol",
+    "onFileSystem:cobol-ls-tar"
   ],
   "icon": "resources/logo.png",
   "main": "./dist/extension.js",
@@ -234,7 +235,7 @@
         "configuration": "./syntaxes/lang-config-hp.json"
       },
       {
-        "id": "ndvr-cobol",
+        "id": "endevor-print-cobol",
         "extensions": [
           ".cbl.prnt",
           ".cob.prnt",
@@ -243,7 +244,7 @@
           ".cpy.prnt"
         ],
         "aliases": [
-          "NDVR-COBOL"
+          "Endevor Print COBOL"
         ]
       }
     ],
@@ -284,7 +285,7 @@
         }
       },
       {
-        "language": "ndvr-cobol",
+        "language": "endevor-print-cobol",
         "scopeName": "source.ndvr.cobol",
         "path": "./syntaxes/NDVR.COBOL.tmLanguage.json",
         "embeddedLanguages": {
@@ -442,6 +443,11 @@
           "default": "true",
           "description": "Enables syntactic validation of SQL statements inside EXEC SQL blocks"
         },
+        "cobol-lsp.sql-decimal-comma-allowed": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enables comma char use as a decimal marker in SQL statements"
+        },
         "cobol-lsp.dialects": {
           "type": "array",
           "items": {
@@ -598,6 +604,7 @@
     "@code4z/cobol-dialect-api": "file:../cobol-dialect-api",
     "@vscode/extension-telemetry": "^0.9.8",
     "io-ts": "2.2.21",
+    "tar-stream": "^3.1.7",
     "vscode-languageclient": "^9.0.1"
   },
   "devDependencies": {
@@ -608,6 +615,7 @@
     "@types/minimatch": "5.1.2",
     "@types/mocha": "^10.0.9",
     "@types/node": "^22.9.0",
+    "@types/tar-stream": "^3.1.4",
     "@types/vscode": "1.82",
     "@vscode/test-electron": "^2.4.1",
     "@vscode/test-web": "^0.0.63",
