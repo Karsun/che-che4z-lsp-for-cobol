@@ -222,8 +222,8 @@ public class CliAnalysis implements Callable<Integer> {
 
     @CommandLine.Option(
         names = {"-ce", "--copybook-extension"},
-        description = "List of copybook paths.")
-    private String[] cpyExt = {"", ".cpy"};
+        description = "List of copybook extensions (e.g. .cpy, .dcl).")
+    private String[] cpyExt = {"", ".cpy", ".dcl"};
   }
 
   /** extended source options */

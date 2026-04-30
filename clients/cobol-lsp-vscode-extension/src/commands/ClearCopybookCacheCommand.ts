@@ -18,8 +18,16 @@ import {
   COPYBOOK_CACHE_CLEARED_INFO,
   COPYBOOKS_FOLDER,
   E4E_FOLDER,
+  TAR_FOLDER,
+  ZOWE_FSP_CACHE,
 } from "../constants";
 import { hasMember } from "../services/util/Utils";
+
+const cacheSubdirectories = [
+  [E4E_FOLDER, COPYBOOKS_FOLDER],
+  [TAR_FOLDER],
+  [ZOWE_FSP_CACHE],
+];
 
 /**
  * Clears the downloaded copybook cache folder ({globalStoragePath}/zowe/copybooks).
@@ -27,10 +35,11 @@ import { hasMember } from "../services/util/Utils";
  */
 export function clearCache(uri: vscode.Uri) {
   const deletePromise = (async () => {
-    const e4e = await deleteFolderContent(
-      vscode.Uri.joinPath(uri, E4E_FOLDER, COPYBOOKS_FOLDER),
+    const results = await Promise.allSettled(
+      cacheSubdirectories.map((d) =>
+        deleteFolderContent(vscode.Uri.joinPath(uri, ...d)),
+      ),
     );
-    const results = await Promise.allSettled(e4e);
     if (results.find((r) => r.status === "rejected"))
       vscode.window.showInformationMessage(
         "Encountered problem while clearing copybook cache",
